@@ -1,16 +1,102 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
   <title>Clicker Game</title>
+  <style>
+    body {background-color: rgb(234,231,224);}
+    h2   {color: red;}
+    p    {color: rgb(100, 0, 0);}
+    small    {color: rgb(0, 110, 0);}
+  </style>
 </head>
+
 <body>
-<p>people unemployed: 0</p>
-<img src="https://upload.wikimedia.org/wikipedia/commons/3/3d/Margaret_Thatcher_stock_portrait_%28cropped%29.jpg" height="550" width="400">
+  <h2 id="score">people unemployed: 0</h2>
+  <p id="peopleUnemployedPerClick">people unemployed per click: 1</p>
+  <p id="peopleAutomaticallyUnemployedPerSecond">people automatically unemployed per second: 0</p>
+  <img id="wickedBeachImage"
+    src="https://upload.wikimedia.org/wikipedia/commons/3/3d/Margaret_Thatcher_stock_portrait_%28cropped%29.jpg"
+    height="550" width="400">
+  <p><button id="Upgrade1">Clicking Upgrade - 50</button><small id="upgrade1TimesBought"> (0)</small></p>
+  <p><button id="Upgrade2">Multiply 2x Upgrade - 500</button><small id="upgrade2TimesBought"> (0)</small></p>
+  <p><button id="Upgrade3">Autoclicker - 250</button><small id="upgrade3TimesBought"> (0)</small></p>
 </body>
+
 </html>
 
 <script>
-    var score
+  document.getElementById("Upgrade1").addEventListener("click", upgrade1Clicked)
+  function upgrade1Clicked() {
+    if (score >= upgrade1Price) {
+      score = score - upgrade1Price
+      scorePerClick = scorePerClick + 1
+      upgrade1Price = upgrade1Price + 25
+      upgrade1BuyCounter = upgrade1BuyCounter + 1
+      variablePeopleUnemployedPerClick = scorePerClick * scorePerClickMultiplier
+      variableAutomaticallyPeopleUnemployedPerSecond = scorePerClick * scorePerClickMultiplier * upgrade3BuyCounter
+      document.getElementById("score").innerText = "people unemployed: " + score
+      document.getElementById("Upgrade1").innerText = "Clicking Upgrade - " + upgrade1Price
+      document.getElementById("upgrade1TimesBought").innerText =  " (" + upgrade1BuyCounter + ")"
+      document.getElementById("peopleUnemployedPerClick").innerText = "people unemployed per click: " + variablePeopleUnemployedPerClick
+      document.getElementById("peopleAutomaticallyUnemployedPerSecond").innerText = "people automatically unemployed per second: " + scorePerClick * scorePerClickMultiplier * upgrade3BuyCounter
+    }
+  }
+
+  document.getElementById("Upgrade2").addEventListener("click", upgrade2Clicked)
+  function upgrade2Clicked() {
+    if (score >= upgrade2Price) {
+      score = score - upgrade2Price
+      scorePerClickMultiplier = scorePerClickMultiplier * 2
+      upgrade2Price = upgrade2Price * 3
+      upgrade2BuyCounter = upgrade2BuyCounter + 1
+      variablePeopleUnemployedPerClick = scorePerClick * scorePerClickMultiplier
+      variableAutomaticallyPeopleUnemployedPerSecond = scorePerClick * scorePerClickMultiplier * upgrade3BuyCounter
+      document.getElementById("score").innerText = "people unemployed: " + score
+      document.getElementById("Upgrade2").innerText = "Multiply 2x Upgrade - " + upgrade2Price
+      document.getElementById("upgrade2TimesBought").innerText = " (" + upgrade2BuyCounter + ")"
+      document.getElementById("peopleUnemployedPerClick").innerText = "people unemployed per click: " + variablePeopleUnemployedPerClick
+      document.getElementById("peopleAutomaticallyUnemployedPerSecond").innerText = "people automatically unemployed per second: " + scorePerClick * scorePerClickMultiplier * upgrade3BuyCounter
+    }
+  }
+
+  document.getElementById("Upgrade3").addEventListener("click", upgrade3Clicked)
+  function upgrade3Clicked() {
+    if (score >= upgrade3Price) {
+      score = score - upgrade3Price
+      upgrade3Price = upgrade3Price + 250
+      upgrade3BuyCounter = upgrade3BuyCounter + 1
+      variablePeopleUnemployedPerClick = scorePerClick * scorePerClickMultiplier
+      variableAutomaticallyPeopleUnemployedPerSecond = scorePerClick * scorePerClickMultiplier * upgrade3BuyCounter
+      document.getElementById("score").innerText = "people unemployed: " + score
+      document.getElementById("Upgrade3").innerText = "Autoclicker - " + upgrade3Price
+      document.getElementById("upgrade3TimesBought").innerText = " (" + upgrade3BuyCounter + ")"
+      document.getElementById("peopleAutomaticallyUnemployedPerSecond").innerText = "people automatically unemployed per second: " + scorePerClick * scorePerClickMultiplier * upgrade3BuyCounter
+    }
+  }
+
+  document.getElementById("wickedBeachImage").addEventListener("click", increaseScore)
+  function increaseScore() {
+    score = score + (scorePerClick * scorePerClickMultiplier)
+    document.getElementById("score").innerText = "people unemployed: " + score
+  }
+
+  setInterval(() => {
+      score = score + (scorePerClick * scorePerClickMultiplier * upgrade3BuyCounter)
+      document.getElementById("score").innerText = "people unemployed: " + score
+      }, 1000) // increase every 1 second
+
+  var score = 0
+  var scorePerClick = 1
+  var scorePerClickMultiplier = 1
+  var upgrade1Price = 50
+  var upgrade2Price = 500
+  var upgrade3Price = 250
+  var upgrade1BuyCounter = 0
+  var upgrade2BuyCounter = 0
+  var upgrade3BuyCounter = 0
+  var variablePeopleUnemployedPerClick = scorePerClick * scorePerClickMultiplier
+  var variableAutomaticallyPeopleUnemployedPerSecond = 0
 </script>
