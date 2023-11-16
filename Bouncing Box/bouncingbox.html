@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Bouncy box</title>
+  <style>
+    body {
+      background-color: black;
+    }
+
+    div {
+      width: 50px;
+      height: 50px;
+      background-color: red;
+      position: absolute;
+      top: 200px;
+      left: 200px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="box">
+    <img
+      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTsfXDQfpHo0OZeR3hL2sRid2ezTFPgxI2L9c93PdK7rvbW7HtEoFb-PDKMWAMDYiqMmfE:https://pbs.twimg.com/media/FrTEN2vakAAtxvB.jpg:large&usqp=CAU"
+      width="50" height="50">
+  </div>
+</body>
+
+
+</html>
+
+<script>
+
+  setInterval(() => {
+    if (x < 0) {
+      xdirection = 1
+    }
+    if (x > 1868) {
+      xdirection = -1
+    }
+    if (y < 0) {
+      ydirection = 1
+    }
+    if (y > 1026) {
+      ydirection = -1
+    }
+    x = x + xdirection
+    y = y + ydirection
+    document.getElementById("box").style.left = x + "px"
+    document.getElementById("box").style.top = y + "px"
+  }, 0) // increase every 1 second
+
+  var x = 200
+  var y = 200
+  var xdirection = 1
+  var ydirection = 1
+
+</script>
